@@ -14,7 +14,7 @@ def compute_gradients(a, b, X, y):
     return da, db
 
 
-def gradient_descent(X, y, start_a, start_b, learning_rate, n_iterations):
+def gradient_descent(X, y, start_a, start_b, learning_rate, n_iterations=50):
     a, b = start_a, start_b
     path = [(a, b, compute_loss(a, b, X, y))]
 
