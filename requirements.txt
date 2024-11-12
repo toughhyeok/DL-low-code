@@ -1,0 +1,7 @@
+jupyterlab
+scikit-learn
+pandas
+numpy
+torch
+torchvision
+
