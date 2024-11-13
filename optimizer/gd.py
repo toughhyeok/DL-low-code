@@ -34,6 +34,13 @@ def compute_gradients(a, b, X, y):
 
 
 def gradient_descent(X, y, start_a, start_b, learning_rate, n_iterations=50):
+    if not isinstance(X, np.ndarray) or not isinstance(y, np.ndarray):
+        raise TypeError("X와 y는 numpy array여야 합니다.")
+
+    if X.shape[0] != y.shape[0] or y.shape[1] != 1:
+        raise ValueError(
+            f"입력 X의 shape은 (m, n), 입력 y의 shape은 (m, 1)이어야 합니다.\n실제 입력 X의 shape: {X.shape}, 입력 y의 shape: {y.shape}")
+
     a, b = start_a, start_b
     path = [(a, b, compute_loss(a, b, X, y))]
 
