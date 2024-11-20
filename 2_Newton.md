@@ -2,9 +2,9 @@
 Objective function이 $(y-A\theta)^{T}(y-A\theta)$ 일 때,
 Grandient descent는 $\theta_{k+1}=\theta_{k}+2A^{T}(y-A\theta_{k})\times\alpha$ 하는 방식이었다!
 
-Newton's method는 기본적으로 해를 구하는 방법이다. (어떤 $f(\theta)$가 $0$을 만나는 $\theta^{*}$를 찾아라!)
+Newton's method는 기본적으로 해를 구하는 방법이다. (어떤 $f(x)$가 $0$을 만나는 $x^{*}$를 찾아라!)
 
-![Newton's Method](https://en.wikipedia.org/wiki/File:Methode_newton.png)
+![Newton's Method](https://upload.wikimedia.org/wikipedia/commons/8/83/Methode_newton.png)
 
 $x_{0}$에서 어떻게 $x_{1}$으로 가지?
 $x_{0}$의 접선을 이용해보자.
@@ -22,6 +22,7 @@ Objective function의 미분 값이 0이 되는 지점을 찾는 방식으로 �
 $$\theta_{k+1}=\theta_{k}-\frac{1}{f^{''}(\theta_{k})}\times f^{'}(\theta_{k})$$
 
 > $\frac{\partial f}{\partial \theta^{T}}=-2(y-Ax)^{T}A$를 transpose하면 $-2A^{T}(y-Ax)$
+> 
 > $\frac{\partial }{\partial \theta^{T}}(\frac{\partial f}{\partial \theta^{T}})=2A^{T}A$는 Hessian
 
 (행렬의 역수는 Inverse 이다!)
