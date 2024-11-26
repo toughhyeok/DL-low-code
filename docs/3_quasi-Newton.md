@@ -5,6 +5,7 @@ $\nabla^{2}$를 구하기 어려운 경우도 있기 때문에 이걸 단순화�
 (아래 부터는 $f(\theta)$의 일 차 도함수를 $g(\theta)$라고 생각하자. 그리고 $\theta$를 $x$라 표기하자!)
 
 접선 대신에 $g(x_{0})$, $g(x_{1})$을 지나는 직선을 사용해 보면 어떨까?
+
 (순간 기울기 대신 평균 기울기를 써보면 어떨까?)
 
 ![Secant Method](https://upload.wikimedia.org/wikipedia/commons/9/92/Secant_method.svg)
@@ -28,6 +29,7 @@ Broyden은 $B_{k+1} - B_{k}$의 원소들이 매우 작을거라고 생각했다
 그래서 아래와 같이 문제를 정의했다!
 
 $$ \min{\parallel B_{k+1}-B_{k}\parallel^{2}_{F}}$$
+
 $$ \text{subject to } y_{k}=B_{k+1}s_{k}$$
 
 즉 secant condition을 만족하면서 $\parallel B_{k+1}-B_{k}\parallel^{2}_{F}$을 최소화 하는 $A$를 찾아보자!
@@ -36,7 +38,7 @@ $$ \text{subject to } y_{k}=B_{k+1}s_{k}$$
 > 
 > Frobenius norm이라는 것으로 모든 원소의 제곱합에 루트를 씌운 것!
 > 
-> $ \begin{bmatrix}a_{11} && a_{12} \\ a_{21} && a_{22}\end{bmatrix}$의 Frobenius norm은 $\sqrt{a_{11}^{2}+a_{12}^{2}+a_{21}^{2}+a_{22}^{2}}$
+> $$ \begin{bmatrix}a_{11} && a_{12} \\ a_{21} && a_{22}\end{bmatrix}$의 Frobenius norm은 $\sqrt{a_{11}^{2}+a_{12}^{2}+a_{21}^{2}+a_{22}^{2}} $$
 
 이렇게 제약 조건이 있는 문제를 풀 때, Lagrange multiplier 사용하면 쉽게 풀 수 있다.
 
@@ -45,7 +47,9 @@ $$ \text{subject to } y_{k}=B_{k+1}s_{k}$$
 > 예시로 이해해보자!
 > 
 > $$\min({x^{2}+y^{2}})$$
+> 
 > $$ \text{subject to } x+y+2=0$$
+> 
 > 문제를 풀 때 Lagrange multiplier를 이용하면
 > 
 > $\mathcal{L}(\lambda, x, y)=x^{2}+y^{2}+\lambda(x+y+2)$
@@ -61,12 +65,17 @@ $$ \text{subject to } y_{k}=B_{k+1}s_{k}$$
 Lagrange multiplier 이용해서 풀기!
 
 $$\mathcal{L}(\lambda,B_{k+1})=\mathrm{tr}((B_{k+1}-B_{k})^{T}(B_{k+1}-B_{k}))+\lambda^{T}(y_{k}-B_{k+1}s_{k})$$
+
 $$ \frac{\partial \mathcal{L}}{\partial B_{k+1}}=2(B_{k+1}-B_{k})-\lambda s_{k}^{T}=0 $$
+
 정리하면
+
 $B_{k+1}=B_{k}+\frac{1}{2}\lambda s_{k}^{T}$가 된다.
 
 > $$ \frac{\partial }{\partial B_{k+1}}\lambda^{T}(y_{k}-B_{k+1}s_{k})=-\frac{\partial}{\partial B_{k+1}}(\lambda^{T}B_{k+1}s_{k}) $$
+> 
 > $$ \frac{\partial}{\partial B_{k+1}}(\lambda^{T}B_{k+1}s_{k})=\lambda s_{k}^{T} $$
+> 
 > 위와 같은 결과가 나오는 이유는 행렬의 곱셈 미분 규칙을 적용할 결과이다!
 > 
 > $\lambda^{T}B_{k+1}s_{k}$는 스칼라 값인데, $B_{k+1}$에 대해 미분하면 $\lambda^{T}$와 $s_{k}$의 순서를 바꿔서 $\lambda s_{k}^{T}$로 표현된다!
@@ -74,10 +83,15 @@ $B_{k+1}=B_{k}+\frac{1}{2}\lambda s_{k}^{T}$가 된다.
 $$ \frac{\partial \mathcal{L}}{\partial \lambda}=y_{k}-B_{k+1}s_{k}=0 $$
 
 $$ y_{k}=B_{k+1}s_{k} $$
+
 $$ y_{k}=(B_{k}+\frac{1}{2}\lambda s_{k}^{T})s_{k} $$
+
 $$ \lambda=2\frac{y_{k}-B_{k}s_{k}}{s_{k}^{T}s_{k}}$$
+
 이렇게 구한 $\lambda$를 $B_{k+1}=B_{k}+\frac{1}{2}\lambda s_{k}^{T}$에 대입하면
+
 $$ B_{k+1}=B_{k}+\frac{1}{2}(2\frac{y_{k}-B_{k}s_{k}}{s_{k}^{T}s_{k}})s_{k}^{T}$$
+
 $$ B_{k+1}=B_{k}+\frac{(y_{k}-B_{k}s_{k})s_{k}^{T}}{s_{k}^{T}s_{k}}$$
 
 짠!
@@ -103,6 +117,7 @@ $u$를 $y_{k}-B_{k}s_{k}$라고 하고 $v$를 $\frac{s_{k}^{T}}{s_{k}^{T}s_{k}}$
 $$ B_{k+1}^{-1}=B_{k}^{-1}+(s_{k}-B_{k}^{-1}y_{k})\frac{s_{k}^{T}B_{k}^{-1}}{s_{k}^{T}B_{k}^{-1}y_{k}}$$
 
 이제 inverse 표시가 필요 없어지고 $B^{-1}$ 대신 $H$로 표현하면
+
 $$ H_{k+1}=H_{k}+(s_{k}-H_{k}y_{k})\frac{s_{k}^{T}H_{k}}{s_{k}^{T}H_{k}y_{k}}$$
 
 드디어 Broyden method 끝!
@@ -120,6 +135,7 @@ $B_{0}$(또는 $H_{0}$ symmetric한 행렬로 설정해도 rank one matrix는 sy
 BFGS는 Hessian 근사의 정확도를 높이기 위해서 제약 조건에 $A=A^{T}$를 추가했다! (그리고 근사한 Hessian이 positive-definite 일 수 있도록..., Convex optimization에서는 매우 중요!)
 
 $$ \min{\parallel B_{k+1}-B_{k}\parallel^{2}_{W}}$$
+
 $$ \text{subject to } y_{k}=B_{k+1}s_{k} \text{ and } A=A^{T}$$
 
 > $\parallel B_{k+1}-B_{k}\parallel^{2}_{W}$는 weighted frobenius norm이라는 것으로...
@@ -127,6 +143,7 @@ $$ \text{subject to } y_{k}=B_{k+1}s_{k} \text{ and } A=A^{T}$$
 최종 식은
 
 $$ B_{k+1}=B_{k}+\frac{y_{k}y_{k}^{T}}{y_{k}^{T}s_{k}}-\frac{B_{k}s_{k}(B_{k}s_{k})^{T}}{s_{k}^{T}B_{k}s_{k}}$$
+
 $$ H_{k+1}=(I-\frac{s_{k}y_{k}^{T}}{y_{k}^{T}s_{k}})H_{k}(I-\frac{y_{k}s_{k}^{T}}{y_{k}^{T}s_{k}})+\frac{s_{k}s_{k}^{T}}{y_{k}^{T}s_{k}}$$
 
 BFGS는 Broyden 방법과 달리 Rank 2 업데이트 이다!
