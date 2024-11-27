@@ -38,7 +38,9 @@ $$ \text{subject to } y_{k}=B_{k+1}s_{k}$$
 > 
 > Frobenius norm이라는 것으로 모든 원소의 제곱합에 루트를 씌운 것!
 > 
-> $$ \begin{bmatrix}a_{11} && a_{12} \\ a_{21} && a_{22}\end{bmatrix}$의 Frobenius norm은 $\sqrt{a_{11}^{2}+a_{12}^{2}+a_{21}^{2}+a_{22}^{2}} $$
+> $$\begin{equation} A=\begin{bmatrix}a_{11} & a_{12} \\\ a_{21} & a_{22}\end{bmatrix}\end{equation}$$
+>
+> $A$의 Frobenius norm은 $\sqrt{a_{11}^{2}+a_{12}^{2}+a_{21}^{2}+a_{22}^{2}} $
 
 이렇게 제약 조건이 있는 문제를 풀 때, Lagrange multiplier 사용하면 쉽게 풀 수 있다.
 
