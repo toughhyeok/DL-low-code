@@ -39,10 +39,59 @@ $\theta_{t+1} = \theta_{t} - \eta\cdot\nabla_{\theta}J_{i_{t}}(\theta) $
 경사가 완만한 영역에서는 수렴 속도가 느려질 수 있음. 
 적절한 학습률을 선택하지 않으면 최적화가 잘 되지 않음. 
 
-
-
 ## 주요 차이점 요약
+SDG는 DG와 다르게 전체 데이터를 가지고 기울기를 계산하지 않고 
+
+
+
+# Momentum
+- 관성을 주자! -> 진동 제거 -> 수렴 속도 증가
+
+Momentum $m_{t+1} = \beta\cdot m_{t} - \cdot \eta \nabla J(\theta_t)$
+- $m_{t}$: 현재 모멘트 (기울기의 평균)
+- $g_t$: 현재 시간 t의 기울기(gradient)
+- $\beta_1$: 1차 모멘트의 decay rate
+
+
+
+
+## NAG (Nesterov Accelerated Gradient)
+기존 Momentum은 현재 위치의 기울기를 속도에 더해줬다면
+NAG는 예측한 다음 위치의 기울기를 사용함.
+
+$\hat \theta_t = \theta_t + \gamma v_{t-1}$<br>
+$v_t = \gamma v_{t-1} - \eta \nabla_\theta J(\hat \theta_t)$<br>
+$\theta_{t+1} = \theta_t + v_t$
+
+
+
+
 
 
 ----
-##### 평균, MSE, 
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+# Adaptive Learning Rate
+$v_t = \beta_2\cdot v_{t-1} + (1 - \beta_2)\cdot g_t^2$
+
+
+
+
+
+# ADAM 
+$\alpha$ : step size <br>
+$\beta_1, \beta_2$: Exponential Decay rates for the moment estimates<br>
+$f(\theta)$: SGD objective function<br>
+<br>
+$g_t = \nabla_\theta f_t (\theta_{t-1})$<br>
+$m_t = \beta_1 \cdot m_{t-1} + (1- \beta_1) \cdot g_t $<br>
+$v_t = \beta_2 \cdot v_{t-1} + (1 - \beta_2) \cdot g_t^2$ <br>
+$\hat{m}_t = m_t / (1-\beta_1^t)$<br>
+$\hat{v}_t = v_t / (1-\beta_2^t)$<br>
+
+$\theta_t = \theta_{t-1} - \alpha\cdot \hat{m_t}/ (\sqrt{\hat{v_t}}+ \epsilon )$<br>
